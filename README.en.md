@@ -1,7 +1,4 @@
 <div align="center">
-     <p align="center">
-          <img src="frontend/web/public/logo.svg" width="150" height="150" alt="logo" />
-     </p>
      <h1>Skill Manager</h1>
      <h3>AI Skill Engineering Platform</h3>
      <p>A platform for engineering, debugging, governing, and publishing enterprise AI skills.</p>

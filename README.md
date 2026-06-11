@@ -1,7 +1,4 @@
 <div align="center">
-     <p align="center">
-          <img src="frontend/web/public/logo.svg" width="150" height="150" alt="logo" />
-     </p>
      <h1>Skill Manager</h1>
      <h3>AI Skill Engineering Platform</h3>
      <p>一个面向企业 AI 技能工程化的开发、调试、管理与发布平台。</p>
