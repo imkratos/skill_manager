@@ -95,14 +95,6 @@
               <FaSvgIcon icon="ri:settings-3-line" />
               <span>{{ $t("topBar.user.paramConfig") }}</span>
             </li>
-            <li class="btn-item" @click="toGithub()">
-              <FaSvgIcon icon="ri:github-line" />
-              <span>{{ $t("topBar.user.github") }}</span>
-            </li>
-            <li class="btn-item" @click="toGitee">
-              <FaSvgIcon icon="ri:git-branch-line" />
-              <span>{{ $t("topBar.user.gitee") }}</span>
-            </li>
             <li class="btn-item" @click="lockScreen()">
               <FaSvgIcon icon="ri:lock-line" />
               <span>{{ $t("topBar.user.lockScreen") }}</span>
