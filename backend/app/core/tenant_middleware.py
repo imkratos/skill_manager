@@ -147,28 +147,26 @@ class TenantMiddleware(BaseHTTPMiddleware):
         if _is_whitelisted(path):
             return await call_next(request)
 
+        # 从 JWT 中提取租户信息。解析失败不阻塞请求，认证失败交给认证依赖处理。
         try:
-            # 从 JWT 中提取租户信息
             tenant_id, is_super_admin = _extract_tenant_from_token(request)
+        except Exception:
+            log.exception("租户上下文解析异常: path={}", path)
+            tenant_id, is_super_admin = None, False
 
+        try:
             # 设置租户上下文
             set_current_tenant(tenant_id, is_super_admin)
 
             if tenant_id is not None:
                 log.debug(
-                "租户上下文已设置: tenant_id={}, is_super_admin={}, path={}",
-                tenant_id,
-                is_super_admin,
-                path,
-            )
+                    "租户上下文已设置: tenant_id={}, is_super_admin={}, path={}",
+                    tenant_id,
+                    is_super_admin,
+                    path,
+                )
 
             # 继续处理请求
-            response = await call_next(request)
-            return response
-
-        except Exception:
-            # 中间件异常不阻塞请求，记录日志后放行
-            log.exception("租户中间件处理异常: path={}", path)
             return await call_next(request)
 
         finally:

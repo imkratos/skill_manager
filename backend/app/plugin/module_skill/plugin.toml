@@ -1,0 +1,6 @@
+name = "skill"
+title = "Skill 管理"
+version = "1.0.0"
+description = "管理 Skill 定义、引用文件与标准目录包下载。"
+optional = true
+tags = ["skill", "registry", "ide"]

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Manager"
+  short_description: "面向 Skill Manager 项目的全栈开发指南"
+  default_prompt: "Use $skill-manager to add or modify a Skill Manager module following the repository conventions."

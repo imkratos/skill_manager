@@ -148,7 +148,7 @@ def setup_logging() -> None:
     global _logger_handlers
 
     # 添加上下文信息
-    _ = logger.configure(extra={"app_name": "FastapiAdmin"})
+    _ = logger.configure(extra={"app_name": "SkillManager"})
     # 步骤1：移除默认处理器
     logger.remove()
 
