@@ -60,6 +60,21 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
+## 5. SQL And Migration Discipline
+
+**Every model/schema change must be treated as a database state transition, not just a code change.**
+
+When adding or changing SQL, ORM fields, Alembic migrations, seed data, or query projections:
+- Check whether the target table may already exist in user databases. If yes, migrations must be idempotent where practical: inspect table/column/index existence before adding or mutating.
+- Never assume editing an already-applied migration will update existing databases. If `alembic_version` has reached that revision, add a new repair/forward migration instead.
+- Verify both sides: the ORM/query expects the column, and the real database has it. A successful `upgrade head` is not enough if the revision was previously marked applied.
+- After migration, inspect `alembic_version` and the actual table columns/indexes involved in the change.
+- For non-null new columns on existing tables, provide a safe default/backfill path before enforcing `nullable=False`.
+- For seed/menu/permission data, use insert-if-missing/update-if-needed logic so repeated migrations do not create duplicates.
+- Before finishing, run at least one query path that exercises the new SQL surface, or explain why it could not be run.
+
+Lesson from the skill market issue: the database was stamped at revision `9a8b7c6d5e4f`, but `skill_market_item` did not contain newly expected columns such as `market_kind`. The correct fix was a new forward migration (`a1b2c3d4e5f6`) that repairs missing columns, not resetting migration history or relying on the edited old migration.
+
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
